@@ -24,25 +24,19 @@ using namespace std;
 extern shared_ptr<BaseMapper> get_mapper_from_task_factory(const string& user_id);
 extern shared_ptr<BaseReducer> get_reducer_from_task_factory(const string& user_id);
 
-/* CS6210_TASK: Handle all the task a Worker is supposed to do.
-	This is a big task for this project, will test your understanding of map reduce */
 class Worker {
 public:
 	friend class BaseMapper;
 	friend class BaseReducer;
 
-	/* DON'T change the function signature of this constructor */
 	Worker(string ip_addr_port);
 	~Worker() {
 		server_->Shutdown();
 		cq_->Shutdown();
 	}
-
-	/* DON'T change this function's signature */
 	bool run();
 
 private:
-	/* NOW you can add below, data members and member functions as per the need of your implementation*/
 	class CallData  {
 		public:
 		CallData(MasterWorker::AsyncService* service, ServerCompletionQueue* cq)
@@ -162,8 +156,6 @@ private:
 	unique_ptr<Server> server_;
 };
 
-/* CS6210_TASK: ip_addr_port is the only information you get when started.
-	You can populate your other class data members here if you want */
 Worker::Worker(string ip_addr_port) {
 	ServerBuilder builder;
 	builder.AddListeningPort(ip_addr_port, grpc::InsecureServerCredentials());
@@ -173,11 +165,6 @@ Worker::Worker(string ip_addr_port) {
 	cout << "Server listening on " << ip_addr_port << endl;
 }
 
-/* CS6210_TASK: Here you go. once this function is called your woker's job is to keep looking for new tasks 
-	from Master, complete when given one and again keep looking for the next one.
-	Note that you have the access to BaseMapper's member BaseMapperInternal impl_ and 
-	BaseReduer's member BaseReducerInternal impl_ directly, 
-	so you can manipulate them however you want when running map/reduce tasks*/
 bool Worker::run() {
 	HandleRpcs();
 	return true;

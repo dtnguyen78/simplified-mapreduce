@@ -18,19 +18,14 @@ using masterworker::WorkerRequest;
 using masterworker::WorkerReply;
 using namespace std;
 
-/* CS6210_TASK: Handle all the bookkeeping that Master is supposed to do.
-	This is probably the biggest task for this project, will test your understanding of map reduce */
 class Master {
 
 	public:
-	/* DON'T change the function signature of this constructor */
 	Master(const MapReduceSpec&, const vector<FileShard>&);
 
-	/* DON'T change this function's signature */
 	bool run();
 
 	private:
-	/* NOW you can add below, data members and member functions as per the need of your implementation*/
 	int n_fileshards;
 	MapReduceSpec mr_spec_;		// local copy of given mr_spec
 	vector<FileShard> file_shards_; // local copy of given file_shards
@@ -137,21 +132,10 @@ class Master {
 
 		cout << "Cleaning up intermediate files..." << endl;
 
-		// Clean up all files that aren't output files
-		//for (auto m : mapped_files) {
-		//	remove(m.c_str());
-		//}
-
-		//for (auto &fs : file_shards_) {
-		//	string temp = mr_spec_.output_dir + "/" + fs.filename;
-		//	remove(temp.c_str());
-		//}
 	} //end of Reduce function
 };
 
 
-/* CS6210_TASK: This is all the information your master will get from the framework.
-	You can populate your other class data members here if you want */
 Master::Master(const MapReduceSpec& mr_spec, const std::vector<FileShard>& file_shards) {
 	mr_spec_ = mr_spec;
 	n_fileshards = file_shards.size();
@@ -168,7 +152,6 @@ Master::Master(const MapReduceSpec& mr_spec, const std::vector<FileShard>& file_
 	}
 }
 
-/* CS6210_TASK: Here you go. once this function is called you will complete whole map reduce task and return true if succeeded */
 bool Master::run() {
 	assignMap();
 	assignReduce();

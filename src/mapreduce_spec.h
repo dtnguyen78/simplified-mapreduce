@@ -10,7 +10,6 @@
 
 using namespace std;
 
-/* CS6210_TASK: Create your data structure here for storing spec from the config file */
 struct MapReduceSpec {
 	int n_workers;
 	int n_output_files;
@@ -21,7 +20,6 @@ struct MapReduceSpec {
 	string user_id;
 };
 
-/* CS6210_TASK: Populate MapReduceSpec data structure with the specification from the config file */
 inline bool read_mr_spec_from_config_file(const string& config_filename, MapReduceSpec& mr_spec) {
 	ifstream file(config_filename);
 	if (file.is_open()) {
