@@ -59,6 +59,8 @@ class Master {
 			index = (index + 1) % mr_spec_.n_workers;
 		}
 
+		//FIXME: what to do when a worker thread fails?
+
 		void* got_tag;
 		bool ok = false;
 		int doneCount = 0;
